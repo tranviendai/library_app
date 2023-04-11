@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'Library',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color.fromARGB(255, 225, 225, 225)
       ),
+      
       home: const MyHome(title: 'Home'),
     );
   }
@@ -35,13 +37,7 @@ class MyHome extends StatefulWidget {
 class _MyHomePageState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-        ),
-        drawer: drawer.NavigationDrawer(),
-        backgroundColor: Color.fromARGB(255, 229, 229, 229),
-        body: Home.Home()
-        );
+    return Home.Home();
   }
 
 }

@@ -17,6 +17,7 @@ class _AllBookState extends State<AllBook> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home:  Scaffold(
+        backgroundColor: Color.fromARGB(255, 218, 218, 218),
         appBar: AppBar(  
           backgroundColor: Colors.blue,
           title: !searchBool ? Text("Xem Tất Cả") : searchText(),
@@ -75,7 +76,7 @@ class _AllBookState extends State<AllBook> {
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white,
                     ),
                     child: Column(children: [
                       ClipRRect(
@@ -165,7 +166,7 @@ Widget searchListBook(BuildContext context, int index) {
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Color.fromARGB(255, 237, 237, 237)),
+            color:Colors.white,),
         child: Column(children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),

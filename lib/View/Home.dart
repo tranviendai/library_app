@@ -5,6 +5,7 @@ import 'package:library_app/View/AllBook.dart';
 import 'package:library_app/View/DetailBook.dart';
 import 'package:library_app/Model/Category.dart';
 import 'package:readmore/readmore.dart';
+import 'package:library_app/Model/Drawer.dart' as drawer;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,62 +43,68 @@ class HomeState extends State<Home> {
     if (!isLoad) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      return Container(
-        child: SingleChildScrollView(
-          child: SizedBox(
-              child: Column(
-            children: [
-              Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                     Text( "Thể Loại: ",style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Container(
-                        width: 180,
-                        padding: const EdgeInsets.only(left: 20),
-                        child: DropdownButtonFormField(
-                          decoration:const InputDecoration(
-                            border: InputBorder.none
-                          ),
-                            value: 1,
-                            items: category!.map((location) {
-                              return DropdownMenuItem(
-                                value: location.categoryId,
-                                child:  Text(
-                                  location.nameCategory,
-                                  style: Theme.of(context).textTheme.titleMedium
-                                  ),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                selectItemCategory = value!;
-                              });
-                            }),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                height: 250,
-                child: ListCategory(selectItemCategory.toString()),
-              ),
-              Container(
-                alignment: Alignment.bottomRight,
-                padding: EdgeInsets.only(right: 20,bottom: 5),
-                child: TextButton(
-                  onPressed: (){Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
-                  child: Text("Xem Tất Cả", style: Theme.of(context).textTheme.titleLarge),
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Home"),
+        ),
+         drawer: const drawer.NavigationDrawer(),
+        body: Container(
+          child: SingleChildScrollView(
+            child: SizedBox(
+                child: Column(
+              children: [
+                Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      children: [
+                       Text( "Thể Loại: ",style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        Container(
+                          width: 180,
+                          padding: const EdgeInsets.only(left: 20),
+                          child: DropdownButtonFormField(
+                            decoration:const InputDecoration(
+                              border: InputBorder.none
+                            ),
+                              value: 1,
+                              items: category!.map((location) {
+                                return DropdownMenuItem(
+                                  value: location.categoryId,
+                                  child:  Text(
+                                    location.nameCategory,
+                                    style: Theme.of(context).textTheme.titleMedium
+                                    ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectItemCategory = value!;
+                                });
+                              }),
+                        ),
+                      ],
+                    )),
+                SizedBox(
+                  height: 250,
+                  child: ListCategory(selectItemCategory.toString()),
                 ),
-              ),
-               SizedBox(
-                height: 400,
-                child: ListBook(),
-              ),
-            ],
-          )),
+                Container(
+                  alignment: Alignment.bottomRight,
+                  padding: EdgeInsets.only(right: 20,bottom: 5),
+                  child: TextButton(
+                    onPressed: (){Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
+                    child: Text("Xem Tất Cả", style: Theme.of(context).textTheme.titleLarge),
+                  ),
+                ),
+                 SizedBox(
+                  height: 400,
+                  child: ListBook(),
+                ),
+              ],
+            )),
+          ),
         ),
       );
     }
