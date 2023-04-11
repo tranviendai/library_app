@@ -47,43 +47,28 @@ class HomeState extends State<Home> {
           child: SizedBox(
               child: Column(
             children: [
-             
               Container(
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.topLeft,
                   child: Row(
                     children: [
-                     const Text(
-                        "Thể Loại: ",
-                        style: TextStyle(fontSize: 24, color: Colors.black),
+                     Text( "Thể Loại: ",style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      SizedBox(
-                        width: 200,
+                      Container(
+                        width: 180,
+                        padding: const EdgeInsets.only(left: 20),
                         child: DropdownButtonFormField(
-                            decoration: InputDecoration(
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.blueAccent)),
-                                border: OutlineInputBorder(
-                                    borderRadius:  BorderRadius.circular(20),
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.blueAccent)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: const BorderSide(
-                                        width: 1, color: Colors.blueAccent))),
+                          decoration:const InputDecoration(
+                            border: InputBorder.none
+                          ),
                             value: 1,
                             items: category!.map((location) {
                               return DropdownMenuItem(
                                 value: location.categoryId,
                                 child:  Text(
                                   location.nameCategory,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
+                                  style: Theme.of(context).textTheme.titleMedium
                                   ),
-                                ),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -103,8 +88,8 @@ class HomeState extends State<Home> {
                 padding: EdgeInsets.only(right: 20,bottom: 5),
                 child: TextButton(
                   onPressed: (){Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
-                  child: Text("Xem Tất Cả", style: TextStyle(color: Colors.black,fontSize: 24),),
+                    MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
+                  child: Text("Xem Tất Cả", style: Theme.of(context).textTheme.titleLarge),
                 ),
               ),
                SizedBox(
@@ -125,7 +110,7 @@ class HomeState extends State<Home> {
         padding: const EdgeInsets.all(3),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1/1.25),
+            crossAxisCount: 2, childAspectRatio: 1/1.3),
         itemBuilder: (context, index) {
           final sortBooks = book
             ?..sort((item1, item2) => sort
@@ -135,42 +120,39 @@ class HomeState extends State<Home> {
                     .compareTo(item1.title.toLowerCase()));
           final books = book![index];
           return InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MyDetails(book: book![index])));
-              },
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor,
-                ),
-                child: Column(children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image(
-                      image: NetworkImage(book![index].image),
-                      height: 170,
-                      width: 170,
-                      fit: BoxFit.fill,
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => MyDetails(book: book![index])));},
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.all(2)),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: ReadMoreText(
-                      trimLength: 16,
-                      trimCollapsedText: '...',
-                      trimExpandedText: '...',
-                      book![index].title,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.left,
-                    ),
-                  )
-                ]),
-              ));
+                    child: Column(children: [
+                      ClipRRect(
+                        
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image(
+                          image: NetworkImage(book![index].image),
+                          height: 170,
+                          width: 170,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.all(2)),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                         book![index].title,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold,color:Colors.black),
+                          textAlign: TextAlign.left,
+                        ),
+                      )
+                    ]),
+                  ));
         });
   }
 
@@ -190,19 +172,15 @@ class HomeState extends State<Home> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => MyDetails(book: title[index])));
               },
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).cardColor,
-                ),
+              child: Card(
+                color: Colors.white,
+                margin: const EdgeInsets.all(5),  
                 child: Column(children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
                     child: Image(
                       image: NetworkImage(title[index].image),
-                      height: 170,
+                      height: 180,
                       width: 200,
                       fit: BoxFit.fill,
                     ),
@@ -212,8 +190,7 @@ class HomeState extends State<Home> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       title[index].title,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
                   )
