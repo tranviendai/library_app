@@ -14,7 +14,7 @@ class MySearchPage extends State<MySearch> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title:const Text('Search'),
+        title:const Text('Tra Cứu'),
       ),
       drawer: const drawer.NavigationDrawer(),
       );

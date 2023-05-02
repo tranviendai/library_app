@@ -10,13 +10,13 @@ class MyAbout extends StatefulWidget {
 }
 
 class _MyAboutState extends State<MyAbout> {
-  String content = 'Bài viết sẽ đi từ lúc khởi tạo project - giải thích về những components cơ bản nhất đến việc sử dụng nó trong thực tế. Nếu biết những component nào rồi thì các bạn có thể lướt qua nhé. Vì mới học nên mình sẽ tạm thời bỏ qua các convension của Flutter trong code cho dễ hiểu.';
+  String content = 'HUFLIT Library là một thư viện hiện đại được thiết kế dành cho trường học, với mục đích giúp trường quản lý và vận hành thư viện một cách dễ dàng và hiệu quả hơn. Hệ thống được xây dựng để phục vụ 3 loại người dùng chính: quản trị viên, thủ thư và đọc giả. Quản trị viên có thể kiểm tra toàn bộ hệ thống, tạo tài khoản cho thủ thư và giám sát hoạt động của thư viện thông qua mục thống kê báo cáo. Thủ thư quản lý các hoạt động hàng ngày của thư viện, bao gồm quản lý sách, quản lý đọc giả và mượn trả sách. Đọc giả có thể tìm kiếm sách theo nhiều tiêu chí khác nhau và tra cứu lịch sử mượn thông qua mã thẻ thư viện. HUFLIT Library còn hỗ trợ quản lý sách chi tiết với các thông tin như tên, tác giả, thể loại, năm xuất bản và tình trạng sách. Điều này giúp cho việc quản lý sách và đầu sách trở nên dễ dàng và thuận tiện hơn bao giờ hết.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('About'),
+        title: Text('Giới Thiệu'),
       ),
       drawer: drawer.NavigationDrawer(),
       body: SingleChildScrollView(
@@ -24,7 +24,7 @@ class _MyAboutState extends State<MyAbout> {
           children: [
             Container(                
               margin: EdgeInsets.only(top: 20,bottom: 5),
-            child: Text("Quy Định Về Thư Viện",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),
+            child: Text("Giới Thiệu Chung",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),
             Container(
               padding: EdgeInsets.all(10),
               child: Center(child: Text(content,style: TextStyle(fontSize: 20,),),),),
@@ -52,11 +52,11 @@ class _MyAboutState extends State<MyAbout> {
                     child: Column(children: [
                       const Padding(padding: EdgeInsets.all(2)),
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: Text(
                          categoires.nameCategory,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold,color:Colors.black),
+                              fontSize: 15, fontWeight: FontWeight.bold,color:Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       )

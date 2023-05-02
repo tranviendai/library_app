@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   static List<Book>? book;
+  static List<Book> title = book!;
   static List<Category>? category;
   static bool sort = false;
   var selectItemCategory = 1;
@@ -45,7 +46,7 @@ class HomeState extends State<Home> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),
+          title: const Text("Trang Chủ"),
         ),
          drawer: const drawer.NavigationDrawer(),
         body: Container(
@@ -53,15 +54,33 @@ class HomeState extends State<Home> {
             child: SizedBox(
                 child: Column(
               children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Container( padding: EdgeInsets.only(left: 20),
+                    child: Text("Sách",style: Theme.of(context).textTheme.titleLarge),),
+                     Container(
+                  padding: EdgeInsets.only(right: 10),
+                  child: TextButton(
+                    onPressed: (){Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
+                    child: Text("Xem Tất Cả", style: TextStyle(color: Colors.blue, fontSize: 24,fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                  ],),
+                 SizedBox(
+                  height: 280,
+                  child: ListBook(),
+                ),
                 Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
+                    padding: EdgeInsets.all(5),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                        Text( "Thể Loại: ",style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Container(
-                          width: 180,
+                          width: 130,
                           padding: const EdgeInsets.only(left: 20),
                           child: DropdownButtonFormField(
                             decoration:const InputDecoration(
@@ -85,22 +104,9 @@ class HomeState extends State<Home> {
                         ),
                       ],
                     )),
-                SizedBox(
-                  height: 250,
+               SizedBox(
+                  height: 500,
                   child: ListCategory(selectItemCategory.toString()),
-                ),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(right: 20,bottom: 5),
-                  child: TextButton(
-                    onPressed: (){Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AllBook(), fullscreenDialog: false),);},
-                    child: Text("Xem Tất Cả", style: Theme.of(context).textTheme.titleLarge),
-                  ),
-                ),
-                 SizedBox(
-                  height: 400,
-                  child: ListBook(),
                 ),
               ],
             )),
@@ -111,13 +117,10 @@ class HomeState extends State<Home> {
   }
 
   Widget ListBook() {
-    return GridView.builder(
+    return ListView.builder(
         itemCount: book!.length,
-        scrollDirection: Axis.vertical,
-        padding: const EdgeInsets.all(3),
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 1/1.3),
         itemBuilder: (context, index) {
           final sortBooks = book
             ?..sort((item1, item2) => sort
@@ -139,12 +142,11 @@ class HomeState extends State<Home> {
                     ),
                     child: Column(children: [
                       ClipRRect(
-                        
                         borderRadius: BorderRadius.circular(20),
                         child: Image(
-                          image: NetworkImage(book![index].image),
-                          height: 170,
-                          width: 170,
+                          image: NetworkImage("https://picsum.photos/seed/${book![index].bookId}/170/170"),
+                          height: 200,
+                          width: 160,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -152,9 +154,18 @@ class HomeState extends State<Home> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                         book![index].title,
+                         book![index].title.length > 15 ? book![index].title.substring(0,15)+'...':book![index].title,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold,color:Colors.black),
+                              fontSize: 18, fontWeight: FontWeight.bold,color:Colors.black),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                         book![index].author.length > 15 ? book![index].author.substring(0,15)+'...':book![index].author,
+                          style: const TextStyle(
+                              fontSize: 16,color:Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       )
@@ -164,43 +175,47 @@ class HomeState extends State<Home> {
   }
 
   Widget ListCategory(String text) {
-    List<Book> title = book!
-        .where((title) => title.categoryId.toString().contains(text))
-        .toList();
+     title = book!
+    .where((title) => title.categoryId.toString().contains(text))
+    .toList();
     return ListView.builder(
         itemCount: title.length,
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.all(3),
+        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (context, index) {
           final books = title[index];
           return InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MyDetails(book: title[index])));
+                    builder: (context) => MyDetails(book: books)));
               },
               child: Card(
                 color: Colors.white,
-                margin: const EdgeInsets.all(5),  
-                child: Column(children: [
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
                     child: Image(
-                      image: NetworkImage(title[index].image),
-                      height: 180,
-                      width: 200,
-                      fit: BoxFit.fill,
+                      height: 110,
+                      image: NetworkImage("https://picsum.photos/seed/${books.bookId}/170/170"),
                     ),
                   ),
                   const Padding(padding: EdgeInsets.all(2)),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      title[index].title,
-                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),
-                      textAlign: TextAlign.center,
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child:  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                     Text(
+                      books.title.length > 20 ? books.title.substring(0,20)+"...": books.title,
+                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),
+                      textAlign: TextAlign.left,
                     ),
-                  )
+                    Text(books.author,
+                    style: TextStyle(color: Colors.black,fontSize: 16),
+                    )
+                 ],),
+                )
                 ]),
               ));
         });

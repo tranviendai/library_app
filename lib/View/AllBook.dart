@@ -34,11 +34,12 @@ class _AllBookState extends State<AllBook> {
                       icon: const Icon(
                         Icons.search,
                       )),
-                  IconButton(
-                      icon: Icon(Icons.sort),
-                      onPressed: () => setState(() {
-                            Home.HomeState.sort = !Home.HomeState.sort;
-                          })),
+                PopupMenuButton(itemBuilder: (context)=>[
+                   PopupMenuItem( onTap:()=>setState(() {
+                         Home.HomeState.sort = !Home.HomeState.sort;
+                   }),
+                    child: const Text("Sắp Xếp"),),
+                ])
                 ]
               : [
                   IconButton(
@@ -57,7 +58,7 @@ class _AllBookState extends State<AllBook> {
             padding: const EdgeInsets.all(3),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 1 / 1.25),
+                crossAxisCount: 2, childAspectRatio: 1 / 1.4),
             itemBuilder: (context, index) {
               final sortBooks = Home.HomeState.book
                 ?..sort((item1, item2) => Home.HomeState.sort
@@ -82,19 +83,28 @@ class _AllBookState extends State<AllBook> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image(
-                          image: NetworkImage(Home.HomeState.book![index].image),
-                          height: 170,
+                          image: NetworkImage("https://picsum.photos/seed/${Home.HomeState.book![index].bookId}/170/170"),
+                          height: 200,
                           width: 170,
                           fit: BoxFit.fill,
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.all(2)),
+                       const Padding(padding: EdgeInsets.all(2)),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                         Home.HomeState.book![index].title,
+                         Home.HomeState.book![index].title.length > 15 ? Home.HomeState.book![index].title.substring(0,15)+'...':Home.HomeState.book![index].title,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold,color:Colors.black),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                         Home.HomeState.book![index].author.length > 15 ? Home.HomeState.book![index].author.substring(0,15)+'...':Home.HomeState.book![index].author,
+                          style: const TextStyle(
+                              fontSize: 16,color:Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       )
@@ -120,7 +130,7 @@ class _AllBookState extends State<AllBook> {
       },
       autofocus: true,
       cursorColor: Colors.white,
-      style: Theme.of(context).textTheme.titleLarge,
+      style: TextStyle(color: Colors.white),
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(
@@ -128,15 +138,15 @@ class _AllBookState extends State<AllBook> {
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white)),
           suffixIcon: IconButton(
-              icon: Icon(Icons.clear, color: Colors.black),
+              icon: Icon(Icons.clear, color: Colors.white),
               onPressed: () {
                 _controller.clear();
                 setState(() {
                   searchBool = false;
                 });
               }),
-          hintText: 'Search',
-          hintStyle: Theme.of(context).textTheme.titleLarge),
+          hintText: 'Tìm Kiếm',
+          hintStyle: TextStyle(color: Colors.white,fontSize: 18, fontWeight: FontWeight.bold))
     );
   }
 
@@ -171,7 +181,7 @@ Widget searchListBook(BuildContext context, int index) {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image(
-              image: NetworkImage(Home.HomeState.book![index].image),
+              image: NetworkImage("https://picsum.photos/seed/${Home.HomeState.book![index].bookId}/170/170"),
               height: 170,
               fit: BoxFit.cover,
             ),

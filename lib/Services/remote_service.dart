@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class RemoteService{
   Future<List<Book>?> getBooks({String? query}) async{
     var client = http.Client();
-    var uri = Uri.parse('http://10.0.2.2:5137/api/Books/');
+    var uri = Uri.parse('http://10.0.2.2:5137/api/Books/?limit=1000');
     var response = await client.get(uri);
     if(response.statusCode==200){
       var json = response.body;
@@ -20,7 +20,7 @@ class RemoteService{
   }
  Future<List<Category>?> getCategory({String? query}) async{
     var client = http.Client();
-    var uri = Uri.parse('http://10.0.2.2:5137/api/Categories/');
+    var uri = Uri.parse('http://10.0.2.2:5137/api/Categories/?limit=1000');
     var response = await client.get(uri);
     if(response.statusCode==200){
       var json = response.body;

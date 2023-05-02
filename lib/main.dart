@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Library',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Color.fromARGB(255, 225, 225, 225)
+        scaffoldBackgroundColor: Color.fromARGB(255, 236, 236, 236)
       ),
       
       home: const MyHome(title: 'Home'),

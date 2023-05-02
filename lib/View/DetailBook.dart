@@ -37,30 +37,30 @@ class _MyHomePageState extends State<MyDetails> {
         backgroundColor: Colors.blue,
         title: Text(widget.book.title),
       ),
-      
       body:
       SingleChildScrollView(
         child: Container(
-              child: Container(
-               padding:EdgeInsets.all(10),
             child: Column(
               children: [
                 Align(
                   alignment: Alignment.center,
                   child: Image(
-                    image: NetworkImage(widget.book.image),
-                    height: 300,
+                    image: NetworkImage("https://picsum.photos/seed/${widget.book.bookId}/230/280"),
+                    height: 450,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 Text(widget.book.title, style: TextStyle(fontSize:32,fontWeight: FontWeight.w900),),
                 Text(authorCategory,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w400)),
                 Container(
-                  padding: EdgeInsets.all(2),
-                  child: Align( child: ReadMoreText(
-                    trimLines: 6,
+                  padding: EdgeInsets.all(10),
+                  child: Align( 
+                    alignment: Alignment.topLeft,
+                    child: ReadMoreText(
+                    trimLength: 50,
                     widget.book.summary,
                     style: TextStyle(fontSize: 17,fontWeight: FontWeight.w300),
-                    textAlign: TextAlign.justify,
                     trimCollapsedText: '...Show more',
                     trimExpandedText: ' Show less',
                     moreStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.blueAccent),
@@ -71,8 +71,7 @@ class _MyHomePageState extends State<MyDetails> {
               ],
             ),
           )),
-      )
-      );
+        );
     
   }
 }
