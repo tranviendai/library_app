@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyDetails> {
                   ),
                 ),
                 Text(widget.book.title, style: TextStyle(fontSize:32,fontWeight: FontWeight.w900),),
-                Text(authorCategory,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w400)),
+                Text(authorCategory + ' - ' + widget.book.category!.nameCategory,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w400)),
                 Container(
                   padding: EdgeInsets.all(10),
                   child: Align( 

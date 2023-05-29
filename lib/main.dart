@@ -20,24 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Color.fromARGB(255, 236, 236, 236)
       ),
-      
-      home: const MyHome(title: 'Home'),
+      debugShowCheckedModeBanner: false,
+      home: Home.Home(),
     );
   }
-}
-
-class MyHome extends StatefulWidget {
-  const MyHome({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHome> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHome> {
-  @override
-  Widget build(BuildContext context) {
-    return Home.Home();
-  }
-
 }

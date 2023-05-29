@@ -1,14 +1,27 @@
 // To parse this JSON data, do
-//
+
 //     final book = bookFromJson(jsonString);
 
 import 'dart:convert';
-
+import 'Category.dart';
 List<Book> bookFromJson(String str) => List<Book>.from(json.decode(str).map((x) => Book.fromJson(x)));
 
 String bookToJson(List<Book> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Book {
+    String bookId;
+    int bookIndex;
+    String title;
+    String author;
+    String image;
+    String publisher;
+    String publishingYear;
+    String summary;
+    int count;
+    String addDate;
+    int categoryId;
+    Category? category;
+
     Book({
         required this.bookId,
         required this.bookIndex,
@@ -21,21 +34,8 @@ class Book {
         required this.count,
         required this.addDate,
         required this.categoryId,
-        required this.lBooks,
+        this.category,
     });
-
-    String bookId;
-    int bookIndex;
-    String title;
-    String author;
-    String image;
-    String publisher;
-    String publishingYear;
-    String summary;
-    int count;
-    String addDate;
-    int categoryId;
-    List<dynamic> lBooks;
 
     factory Book.fromJson(Map<String, dynamic> json) => Book(
         bookId: json["bookID"],
@@ -49,7 +49,7 @@ class Book {
         count: json["count"],
         addDate: json["addDate"],
         categoryId: json["categoryID"],
-        lBooks: List<dynamic>.from(json["lBooks"].map((x) => x)),
+        category: json["category"] == null ? null : Category.fromJson(json["category"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -64,6 +64,6 @@ class Book {
         "count": count,
         "addDate": addDate,
         "categoryID": categoryId,
-        "lBooks": List<dynamic>.from(lBooks.map((x) => x)),
+        "category": category?.toJson(),
     };
 }

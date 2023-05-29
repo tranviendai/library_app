@@ -4,7 +4,6 @@ import 'package:library_app/Services/remote_service.dart';
 import 'package:library_app/View/AllBook.dart';
 import 'package:library_app/View/DetailBook.dart';
 import 'package:library_app/Model/Category.dart';
-import 'package:readmore/readmore.dart';
 import 'package:library_app/Model/Drawer.dart' as drawer;
 
 class Home extends StatefulWidget {
@@ -15,13 +14,11 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  static List<Book>? book;
-  static List<Book> title = book!;
+  static List<Book>? book; //all book
+  static List<Book> title = book!; // book sort category
   static List<Category>? category;
-  static bool sort = false;
   var selectItemCategory = 1;
   static var isLoad = false;
-  List<int> listCategory = [];
 
   @override
   void initState() {
@@ -122,12 +119,6 @@ class HomeState extends State<Home> {
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final sortBooks = book
-            ?..sort((item1, item2) => sort
-                ? item1.title.toLowerCase().compareTo(item2.title.toLowerCase())
-                : item2.title
-                    .toLowerCase()
-                    .compareTo(item1.title.toLowerCase()));
           final books = book![index];
           return InkWell(
                   onTap: () {

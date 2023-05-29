@@ -10,13 +10,13 @@ class AllBook extends StatefulWidget {
 
 class _AllBookState extends State<AllBook> {
     final TextEditingController _controller = new TextEditingController();
-
-   bool searchBool = false;
+  bool sortName = false;
+  bool sortDate = false;
+  bool searchBool = false;
   List<int> _searchIndexList = [];
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:  Scaffold(
+    return  Scaffold(
         backgroundColor: Color.fromARGB(255, 218, 218, 218),
         appBar: AppBar(  
           backgroundColor: Colors.blue,
@@ -36,12 +36,10 @@ class _AllBookState extends State<AllBook> {
                       )),
                 PopupMenuButton(itemBuilder: (context)=>[
                    PopupMenuItem( onTap:()=>setState(() {
-                         Home.HomeState.sort = !Home.HomeState.sort;
+                         sortName = !sortName;
                    }),
-                    child: const Text("Sắp Xếp"),),
-                ])
-                ]
-              : [
+                    child: const Text("Theo Tên"),),
+                ])]: [
                   IconButton(
                       onPressed: () {
                         setState(() {
@@ -60,17 +58,16 @@ class _AllBookState extends State<AllBook> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, childAspectRatio: 1 / 1.4),
             itemBuilder: (context, index) {
-              final sortBooks = Home.HomeState.book
-                ?..sort((item1, item2) => Home.HomeState.sort
+              Home.HomeState.book
+                ?.sort((item1, item2) => sortName
                     ? item1.title.toLowerCase().compareTo(item2.title.toLowerCase())
-                    : item2.title
-                        .toLowerCase()
-                        .compareTo(item1.title.toLowerCase()));
+                    : item2.title.toLowerCase().compareTo(item1.title.toLowerCase()));
+      
               final books = Home.HomeState.book![index];
               return InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MyDetails(book: Home.HomeState.book![index])));
+                        builder: (context) => MyDetails(book: books)));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8),
@@ -83,7 +80,7 @@ class _AllBookState extends State<AllBook> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image(
-                          image: NetworkImage("https://picsum.photos/seed/${Home.HomeState.book![index].bookId}/170/170"),
+                          image: NetworkImage("https://picsum.photos/seed/${books.bookId}/170/170"),
                           height: 200,
                           width: 170,
                           fit: BoxFit.fill,
@@ -93,7 +90,7 @@ class _AllBookState extends State<AllBook> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                         Home.HomeState.book![index].title.length > 15 ? Home.HomeState.book![index].title.substring(0,15)+'...':Home.HomeState.book![index].title,
+                         Home.HomeState.book![index].title.length > 15 ? books.title.substring(0,15)+'...':books.title,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold,color:Colors.black),
                           textAlign: TextAlign.left,
@@ -102,7 +99,7 @@ class _AllBookState extends State<AllBook> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                         Home.HomeState.book![index].author.length > 15 ? Home.HomeState.book![index].author.substring(0,15)+'...':Home.HomeState.book![index].author,
+                        books.author.length > 15 ? books.author.substring(0,15)+'...':books.author,
                           style: const TextStyle(
                               fontSize: 16,color:Colors.black),
                           textAlign: TextAlign.left,
@@ -111,7 +108,6 @@ class _AllBookState extends State<AllBook> {
                     ]),
                   ));
             }) : searchView()
-      ),
     );
   }
   

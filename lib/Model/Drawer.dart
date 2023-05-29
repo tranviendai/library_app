@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/View/About.dart';
-import 'package:library_app/View/Search.dart';
-import 'package:library_app/main.dart' as Home;
+import 'package:library_app/View/SearchScreen.dart';
+import 'package:library_app/View/Home.dart' as Home;
 
 class NavigationDrawer extends StatelessWidget{
   const NavigationDrawer({super.key});
@@ -27,9 +27,9 @@ class NavigationDrawer extends StatelessWidget{
       ),
       child: Column(children: const [
           CircleAvatar(
-        radius: 52,
+        radius: 80,
         backgroundImage: NetworkImage(
-          'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3f9da3aa-ea81-4bda-b110-1db968a8ef67/dfvynd0-bce1f455-5668-44f3-a97b-40021db9a5b3.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNmOWRhM2FhLWVhODEtNGJkYS1iMTEwLTFkYjk2OGE4ZWY2N1wvZGZ2eW5kMC1iY2UxZjQ1NS01NjY4LTQ0ZjMtYTk3Yi00MDAyMWRiOWE1YjMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Y3BpHxrWiP4zMI_uHLyuvZgtYx-u8jbrU3Xn6ih8Z4s'
+          'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3f9da3aa-ea81-4bda-b110-1db968a8ef67/dfvypxo-512f0fc1-965d-48dc-a04c-c9b80966f5f4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzNmOWRhM2FhLWVhODEtNGJkYS1iMTEwLTFkYjk2OGE4ZWY2N1wvZGZ2eXB4by01MTJmMGZjMS05NjVkLTQ4ZGMtYTA0Yy1jOWI4MDk2NmY1ZjQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.GdSdP728WTRfHuBX1FGM3yzZyR6v-Or4TX0BdZGynkE'
         ),
       ),
        SizedBox(height: 12),
@@ -44,7 +44,7 @@ class NavigationDrawer extends StatelessWidget{
         leading: const Icon(Icons.home),
         onTap: ()=>
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder:(context) => const Home.MyHome(title: 'Trang Chủ',),
+            builder:(context) => Home.Home(),
            )),
     ),
     ListTile(
@@ -52,7 +52,7 @@ class NavigationDrawer extends StatelessWidget{
         leading: const Icon(Icons.search),
         onTap: ()=>
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context)=>const MySearch())),
+          builder: (context)=> const SearchScreen())),
     ),ListTile(
         title: const Text('Giới Thiệu'),
         leading: const Icon(Icons.info),
