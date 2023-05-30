@@ -44,11 +44,31 @@ class _MyHomePageState extends State<MyDetails> {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Image(
-                    image: NetworkImage("https://picsum.photos/seed/${widget.book.bookId}/230/280"),
-                    height: 450,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill,
+                  child: GestureDetector(
+                    child: Image(
+                      image: NetworkImage("https://picsum.photos/seed/${widget.book.bookId}/250/280"),
+                      height: 450,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.fill,
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push( 
+                       MaterialPageRoute(builder: (ctx) { 
+                        return Scaffold(
+                        appBar: AppBar(
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          
+                        ),
+                        extendBodyBehindAppBar: true,
+                        body: Center(
+                          child: Hero(
+                            tag: 'image-fullscreen',
+                            child: Image.network("https://picsum.photos/seed/${widget.book.bookId}/430/720"),
+                          ),
+                        ));
+                      }));
+                    },
                   ),
                 ),
                 Text(widget.book.title, style: TextStyle(fontSize:32,fontWeight: FontWeight.w900),),

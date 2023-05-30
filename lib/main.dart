@@ -4,6 +4,7 @@ import 'package:library_app/Model/Book.dart';
 import 'package:library_app/View/DetailBook.dart';
 import 'package:library_app/View/Home.dart' as Home;
 import 'package:library_app/Model/Drawer.dart' as drawer;
+import 'package:library_app/View/Splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color.fromARGB(255, 236, 236, 236)
       ),
       debugShowCheckedModeBanner: false,
-      home: Home.Home(),
+      home: const SplashScreen(),
     );
   }
 }

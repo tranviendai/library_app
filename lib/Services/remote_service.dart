@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class RemoteService {
   var client = http.Client();
   // String baseuri = "http://10.0.2.2:5137";
-  String baseuri = "http://10.20.5.57";
+  String baseuri = "http://192.168.1.12";
   Future<List<Book>?> getBooks({String? query}) async {
      var uri = Uri.parse(baseuri + '/api/Books/?limit=1000');
     // var uri = Uri.parse('http://10.20.5.57/api/Books/?limit=1000');
